@@ -1,4 +1,4 @@
-class SausageDog extends Animal {
+class GameStop extends Logo {
   constructor(x, y, image) {
     super(x, y, image);
 

@@ -1,20 +1,22 @@
 "use strict";
 
-const NUM_ANIMAL_IMAGES = 10;
-const NUM_ANIMALS = 100;
+const NUM_LOGO_IMAGES = 10;
+const NUM_LOGO = 35;
 
-let animalImages = [];
-let animals = [];
+let logoImages = [];
+let logos = [];
 
-let sausageDogImage = undefined;
-let sausageDog = undefined;
+let gamestopImage = undefined;
+let gamestop = undefined;
+let wallpaper = undefined;
 
 function preload() {
-  for (let i = 0; i < NUM_ANIMAL_IMAGES; i++) {
-    let animalImage = loadImage(`assets/images/animal${i}.png`)
-    animalImages.push(animalImage);
+  for (let i = 0; i < NUM_LOGO_IMAGES; i++) {
+    let logoImage = loadImage(`assets/images/logo${i}.png`)
+    logoImages.push(logoImage);
   }
-  sausageDogImage = loadImage(`assets/images/sausage-dog.png`)
+  gamestopImage = loadImage(`assets/images/gamestop.png`)
+  wallpaper = loadImage(`assets/images/wallstreet.jpg`)
 }
 
 
@@ -24,17 +26,17 @@ Description of setup
 function setup() {
 createCanvas(windowWidth, windowHeight);
 
-for (let i = 0; i < NUM_ANIMALS; i++) {
+for (let i = 0; i < NUM_LOGO; i++) {
   let x = random(0,width);
   let y = random(0, height);
-  let animalImage = random(animalImages);
-  let animal = new Animal(x, y, animalImage);
-  animals.push(animal);
+  let logoImage = random(logoImages);
+  let logo = new Logo(x, y, logoImage);
+  logos.push(logo);
   }
 
   let x = random(0, width);
   let y = random(0, height);
-  sausageDog = new SausageDog(x, y, sausageDogImage);
+  gamestop = new GameStop(x, y, gamestopImage);
 }
 
 
@@ -42,15 +44,15 @@ for (let i = 0; i < NUM_ANIMALS; i++) {
 Description of draw()
 */
 function draw() {
-  background(255, 255, 0);
+  background(wallpaper);
 
-  for (let i = 0; i < animals.length; i++) {
-    animals[i].update();
+  for (let i = 0; i < logos.length; i++) {
+    logos[i].update();
   }
 
-  sausageDog.update();
+  gamestop.update();
 }
 
 function mousePressed () {
-  sausageDog.mousePressed();
+  gamestop.mousePressed();
 }
