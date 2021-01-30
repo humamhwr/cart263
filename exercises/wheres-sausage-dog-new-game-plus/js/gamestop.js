@@ -18,8 +18,13 @@ class GameStop extends Logo {
           mouseX < this.x + this.image.width/2 &&
           mouseY > this.y - this.image.height/2 &&
           mouseY < this.y + this.image.height/2) {
-           this.found = true;
-      }
+            if(!this.found){
 
+
+           this.found = true;
+           barkSFX.play();
+
+         }
   }
+}
 }
