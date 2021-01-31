@@ -11,6 +11,7 @@ let gamestop = undefined;
 let wallpaper = undefined;
 
 let backgroundMusic = undefined;
+let aw = undefined;
 
 function preload() {
   for (let i = 0; i < NUM_LOGO_IMAGES; i++) {
@@ -21,6 +22,7 @@ function preload() {
   wallpaper = loadImage(`assets/images/wallstreet.jpg`)
 
   backgroundMusic = loadSound(`assets/sounds/effect.mp3`);
+  aw = loadSound(`assets/sounds/aw.mp3`);
 }
 
 let startState = {
@@ -33,7 +35,7 @@ let startState = {
 };
 
 let finishState = {
-  string: `So long Sonic! \n Refresh to play again!`,
+  string: `Thanks for helping brinign them down!`,
   x: undefined,
   y: undefined,
   vx: undefined,

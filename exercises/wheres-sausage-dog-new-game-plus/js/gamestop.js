@@ -13,18 +13,20 @@ class GameStop extends Logo {
       this.angle += this.rotationSpeed;
     }
   }
-    mousePressed() {
-      if (mouseX > this.x - this.image.width/2 &&
-          mouseX < this.x + this.image.width/2 &&
-          mouseY > this.y - this.image.height/2 &&
-          mouseY < this.y + this.image.height/2) {
-            if(!this.found){
+  mousePressed() {
+    if (mouseX > this.x - this.image.width / 2 &&
+      mouseX < this.x + this.image.width / 2 &&
+      mouseY > this.y - this.image.height / 2 &&
+      mouseY < this.y + this.image.height / 2) {
+      if (!this.found) {
 
 
-           this.found = true;
-           barkSFX.play();
+        this.found = true;
+        backgroundMusic.stop();
+        aw.play();
+        state = `finish`;
 
-         }
+      }
+    }
   }
-}
 }
