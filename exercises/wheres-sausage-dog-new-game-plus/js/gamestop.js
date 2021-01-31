@@ -1,3 +1,4 @@
+// importing from the logo class for gamestop
 class GameStop extends Logo {
   constructor(x, y, image) {
     super(x, y, image);

@@ -1,8 +1,12 @@
-"use strict";
+// wheres-sausage-dog-gameplus, Hummam Houara
+// inispired by the latest stocks market costing hedgefunds to lose million of dollars
 
+
+"use strict";
+// const for the number of logos on the screen
 const NUM_LOGO_IMAGES = 10;
 const NUM_LOGO = 35;
-
+// defining arrays for assets
 let logoImages = [];
 let logos = [];
 
@@ -13,6 +17,7 @@ let wallpaper = undefined;
 let backgroundMusic = undefined;
 let aw = undefined;
 
+// loading the images and sounds, used a loop for the logo images
 function preload() {
   for (let i = 0; i < NUM_LOGO_IMAGES; i++) {
     let logoImage = loadImage(`assets/images/logo${i}.png`)
@@ -25,6 +30,8 @@ function preload() {
   aw = loadSound(`assets/sounds/aw.mp3`);
 }
 
+
+// startState and endState variables
 let startState = {
   string: `Pick the stock that would make wall street lose the most money`,
   x: undefined,
@@ -43,9 +50,11 @@ let finishState = {
   size: undefined,
 };
 
+// starting the program with the "start" state
 let state = `start`;
+
 /**
-Description of setup
+canvas and randomizing places of the logos
 */
 function setup() {
   createCanvas(windowWidth, windowHeight);
@@ -62,12 +71,12 @@ function setup() {
   let y = random(0, height);
   gamestop = new GameStop(x, y, gamestopImage);
 
-
-  setUpEnterScreen();
-  setUpEndScreen();
+// calling the enter and end screen
+  setUpStartState();
+  setUpEndState();
 }
 /**
-Description of draw()
+wallpaper and calling all the states
 */
 function draw() {
   background(wallpaper);
@@ -90,7 +99,7 @@ function gameStart() {
 }
 
 //both start and finish screens set with same values
-function setUpEnterScreen() {
+function setUpStartState() {
   startState.x = width / 2;
   startState.y = 200;
   startState.vx = 5;
@@ -98,7 +107,7 @@ function setUpEnterScreen() {
   startState.size = 45;
 }
 
-function setUpEndScreen() {
+function setUpEndState() {
   finishState.x = width / 2;
   finishState.y = 200;
   finishState.vx = 5;
@@ -128,7 +137,7 @@ function gameEnd() {
   text(finishState.string, finishState.x, finishState.y);
   pop();
 }
-
+// when the user presses the mouse the state changes and calling the gamestop mouse pressed function.
 function mousePressed() {
   if (state === `start`) {
     backgroundMusic.play();
