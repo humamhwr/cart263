@@ -1,26 +1,32 @@
-"use strict";
+let phrase = `Hello, world!`;
+let saying = ``; // Track what is currently being said
 
-
-
-/**
-Description of setup
-*/
 function setup() {
-createCanvas(500,500)
+  createCanvas(windowWidth, windowHeight);
 }
 
-
-/**
-Description of draw()
-*/
 function draw() {
-background(0);
+  // Display what is currently being said...
+  background(255);
+
+  push();
+  textSize(32);
+  textAlign(CENTER);
+  text(saying, width / 2, height / 2);
+  pop();
 }
 
 function mousePressed() {
-  responsiveVoice.speak("i like french fries" , "UK English Male" , {
-    pitch: 2,
-    rate: 0.8,
-    volume:1
-  })
+  responsiveVoice.speak(phrase, "UK English Male", {
+    onstart: showSpeaking,
+    onend: hideSpeaking
+  });
+}
+
+function showSpeaking() {
+  saying = phrase;
+}
+
+function hideSpeaking() {
+  saying = ``;
 }
