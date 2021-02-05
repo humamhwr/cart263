@@ -1,32 +1,31 @@
-let phrase = `Hello, world!`;
-let saying = ``; // Track what is currently being said
+let voices; // To remember the array of voices
+let currentVoiceName = ``;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
+
+  // Get the array of voices
+  voices = responsiveVoice.getVoices();
 }
 
 function draw() {
-  // Display what is currently being said...
   background(255);
 
   push();
   textSize(32);
-  textAlign(CENTER);
-  text(saying, width / 2, height / 2);
+  textAlign(CENTER,CENTER);
+  text(currentVoiceName,width/2,height/2);
   pop();
 }
 
 function mousePressed() {
-  responsiveVoice.speak(phrase, "UK English Male", {
-    onstart: showSpeaking,
-    onend: hideSpeaking
-  });
-}
+  // Choose a random voice object from the list
+  let voice = random(voices);
+  // We need the "name" property of our
+  // randomly chosen voice object
+  let currentVoiceName = voice.name;
 
-function showSpeaking() {
-  saying = phrase;
-}
-
-function hideSpeaking() {
-  saying = ``;
+  // Say the text using the randomly chosen voice and with
+  // random rate and pitch.
+  responsiveVoice.speak("Now I talk like this.", currentVoiceName);
 }
