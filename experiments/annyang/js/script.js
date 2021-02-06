@@ -1,5 +1,5 @@
-// Is the light on or off?
-let on = false;
+// The program's face
+let face = `:-|`;
 
 function setup() {
   createCanvas(500, 500);
@@ -7,12 +7,10 @@ function setup() {
   if (annyang) {
     // Create commands
     let commands = {
-      'Turn the light on': function() {
-        on = true;
-      },
-      'Turn the light off': function() {
-        on = false;
-      }
+      // They love me!
+      'I love you': love,
+      // They hate me!
+      'I hate you': hate
     }
     // Add the commands and start annyang
     annyang.addCommands(commands);
@@ -21,11 +19,24 @@ function setup() {
 }
 
 function draw() {
-  // If on is true, make the background white, otherwise make it black
-  if (on) {
-    background(255);
-  }
-  else {
-    background(0);
-  }
+  background(0);
+
+  // Draw the current face emoji in the center of the canvas
+  // rotated to display more like a regular face
+  push();
+  translate(width / 2, height / 2);
+  rotate(PI / 2);
+  textSize(400);
+  textAlign(CENTER, CENTER);
+  fill(255);
+  text(face, 0, 0);
+  pop();
+}
+
+function love() {
+  face = `:-)`;
+}
+
+function hate() {
+  face = `:-(`;
 }
