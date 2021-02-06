@@ -1,42 +1,34 @@
-// The program's face
-let face = `:-|`;
+// Default name
+let userName = `stranger`
 
 function setup() {
-  createCanvas(500, 500);
-  // Check if annyang is available
+  createCanvas(windowWidth, windowHeight);
+
   if (annyang) {
-    // Create commands
-    let commands = {
-      // They love me!
-      'I love you': love,
-      // They hate me!
-      'I hate you': hate
+    let command = {
+      // A command that listens for "my name is..." and the captures
+      // whatever they say after that and sends it as an argument to setName()
+      'My name is *name': setName
     }
-    // Add the commands and start annyang
-    annyang.addCommands(commands);
+    annyang.addCommands(command);
     annyang.start();
   }
+}
+
+// Sets the current username to whatever argument is passed to it by annyang!
+// Now how what the user said will be passed into the parameter called name
+function setName(name) {
+  userName = name;
 }
 
 function draw() {
   background(0);
 
-  // Draw the current face emoji in the center of the canvas
-  // rotated to display more like a regular face
+  // Greet the user
   push();
-  translate(width / 2, height / 2);
-  rotate(PI / 2);
-  textSize(400);
-  textAlign(CENTER, CENTER);
-  fill(255);
-  text(face, 0, 0);
+  fill(255, 255, 0);
+  textSize(32);
+  rectMode(CENTER);
+  text(`Hi there, ${userName}!`, 100, 100);
   pop();
-}
-
-function love() {
-  face = `:-)`;
-}
-
-function hate() {
-  face = `:-(`;
 }
