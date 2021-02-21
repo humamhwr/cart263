@@ -137,6 +137,22 @@ const animals = [
       "zebra"
 ]
 
+//set up enter screen with enclosed introduction string.
+let enterScreen = {
+  string: `Click to enter game, and then click to hear the Anagram. \n Listen to the anagram. \n Say, "I think it is ....." and guess the correct animal. \n GET HINTS: Press 'A' to see the anagram. Press 'L' to see all the possible animals. \n Guess 6 animals correctly and win! BE CAREFUL! If you're wrong we take a point away!`,
+  x: undefined,
+  y: undefined,
+  size: undefined,
+};
+
+//Set up win screen for end of game.
+let winScreen = {
+  string: `You win! REFRESH to play again!`,
+  x: undefined,
+  y: undefined,
+  size: undefined,
+};
+
 let currentAnimal = ``;
 let currentAnswer = ``;
 
@@ -153,6 +169,14 @@ function setup() {
     textSize(32);
     textStyle(BOLD);
     textAlign(CENTER, CENTER);
+
+
+    //call set up functions for different screens for different states.
+   setUpEnterScreen();
+   setUpWinScreen();
+   //call set up function for hintList
+   setUpHintList();
+  }
   }
 }
 
