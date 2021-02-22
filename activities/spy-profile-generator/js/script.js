@@ -1,18 +1,31 @@
 "use strict";
 
 /**
-Title of Project
-Author Name
+spy profile generator
+Hummam houara
 
-This is a template. You must fill in the title,
-author, and this description to match your project!
+generates a randomized spy profile for the user and password protects it
 */
+let spyProfile = {
+  name: `**REDACTED**`,
+  alias: `**REDACTED**`,
+  secretWeapon: `**REDACTED**`,
+  password: `**REDACTED**`
+
+};
+
+let instrumentData = undefined;
+let objectData = undefined;
+let tarotData = undefined;
+
 
 /**
 Description of preload
 */
 function preload() {
-
+objectData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/objects/objects.json`)
+instrumentData = loadJSON (`https://raw.githubusercontent.com/dariusk/corpora/master/data/music/instruments.json`)
+tarotData = loadJSON(`https://raw.githubusercontent.com/dariusk/corpora/master/data/divination/tarot_interpretations.json`)
 }
 
 
@@ -20,13 +33,49 @@ function preload() {
 Description of setup
 */
 function setup() {
-
+  createCanvas(windowWidth, windowHeight);
+  let data = JSON.parse(localStorage.getItem(`spy-profile-data`));
+  if (data !== null) {
+    let password = prompt (`Agent! what is your password?!`)
+    if (password === data.password) {
+      spyProfile.name = data.name;
+      spyProfile.alias = data.alias;
+      spyProfile.secretWeapon = data.sceretWeapon;
+      spyProfile.password = data.password;
+    }
+  }
+  else {
+    generateSpyProfile();
+  }
 }
 
+function generateSpyProfile() {
+  spyProfile.name = prompt(`Agent! what is your name?!`);
+  let instrument = random(instrumentData.instruments)
+  spyProfile.alias = `The ${instrument}`
+  spyProfile.secretWeapon = random(objectData.objects);
+  let card = random(tarotData.tarot_interpretations);
+  spyProfile.password = random (card.keywords);
 
+  localStorage.setItem(`spy-profile-data`, JSON.stringify(spyProfile));
+}
 /**
 Description of draw()
 */
 function draw() {
+background(255);
 
+let profile = `*** SPY PROFILE! DO NOT DISTURBIUTE! ***
+
+Name: ${spyProfile.name}
+Alias: ${spyProfile.alias}
+Secret Weapon: ${spyProfile.secretWeapon}
+password: ${spyProfile.password}`;
+push();
+textFont(`Courier, monospace`);
+textAlign(LEFT,TOP);
+fill(0);
+text(profile, 100,100);
+
+pop();
 }
