@@ -23,13 +23,16 @@ let batmanImage = {
   y: 200,
 }
 let jokerImage = {
-  x:  300,
+  x: 300,
   y: 200,
 }
+let jokerBatmanImage = undefined
+
+
 
 
 function draw() {
-background(0);
+  background(0);
 
 
 }
@@ -42,9 +45,10 @@ function preload() {
   }
   gamestopImage = loadImage(`assets/images/gamestop.png`)
   wallpaper = loadImage(`assets/images/wallpaper.gif`)
-  batmanImage = loadImage (`assets/images/batmanImage.jpg`);
-  jokerImage = loadImage (`assets/images/joker.jpg`);
+  batmanImage = loadImage(`assets/images/batmanImage.jpg`);
+  jokerBatmanImage = loadImage(`assets/images/jokerbatman.gif `);
   backgroundMusic = loadSound(`assets/sounds/effect.mp3`);
+
   aw = loadSound(`assets/sounds/aw.mp3`);
 }
 
@@ -90,7 +94,7 @@ function setup() {
   let y = random(0, height);
   gamestop = new GameStop(x, y, gamestopImage);
 
-// calling the enter and end screen
+  // calling the enter and end screen
   setUpStartState();
   setUpEndState();
 }
@@ -111,9 +115,26 @@ function draw() {
 
 
 function gameStart() {
-  image(batmanImage, 100, 200, 400, windowHeight);
-  image(jokerImage, 400, 200, 400, windowHeight);
+  background(jokerBatmanImage)
+
+  if (annyang) {
+    let commands = {
+      'joker': function() {
+        state = `start`
+      }
+    }
+    let commands1 = {
+      'hello': function() {
+        state = `start`
+      }
+    }
+
+
+    annyang.addCommands(commands);
+    annyang.addCommands(commands1);
+    annyang.start();
   }
+}
 
 
 //both start and finish screens set with same values
@@ -159,7 +180,6 @@ function gameEnd() {
 // when the user presses the mouse the state changes and calling the gamestop mouse pressed function.
 function mousePressed() {
   if (state === `start`) {
-
     state = `game`;
   } else if (state === `game`) {
     gamestop.mousePressed();
