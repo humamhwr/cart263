@@ -4,8 +4,8 @@
 "use strict";
 
 //defining the audio and video files and the sliders
-let fingers;
-let pie;
+let batmanClip;
+let jokerClip;
 
 let jokerMusic, jokerSfx, jokerScript;
 let batmanMusic, batmanSfx, batmanScript;
@@ -26,7 +26,7 @@ let jokerImage = {
   y: 200,
 }
 let jokerBatmanImage;
-let batmanScene;
+
 
 function draw() {
   background(0);
@@ -77,26 +77,26 @@ function setup() {
 
   // specify multiple formats for different browsers
   //loading the video, playing it on loop and muted
-  fingers = createVideo(['assets/videos/fingers.mov', 'assets/fingers.webm']);
-  fingers.hide();
-  fingers.elt.muted = true;
-  fingers.loop();
+  batmanClip = createVideo(['assets/videos/batman.mov']);
+  batmanClip.hide();
+  batmanClip.elt.muted = true;
+  batmanClip.loop();
 
-  pie = createVideo(['assets/videos/pie.mov', 'assets/fingers.webm']);
-  pie.hide();
-  pie.elt.muted = true;
-  pie.loop();
+  jokerClip = createVideo(['assets/videos/joker.mov']);
+  jokerClip.hide();
+  jokerClip.elt.muted = true;
+  jokerClip.loop();
 
 
 
   //loading the audio files
-  jokerMusic = createAudio('assets/sounds/FRVRFRIDAY.mp3');
-  jokerSfx = createAudio('assets/sounds/pride.mp3');
-  jokerScript = createAudio('assets/sounds/carti.mp3');
+  jokerMusic = createAudio('assets/sounds/jokersoundtrack.mp3');
+  jokerSfx = createAudio('assets/sounds/batmanFx.mp3');
+  jokerScript = createAudio('assets/sounds/jokerScript.mp3');
 
-  batmanMusic = createAudio('assets/sounds/FRVRFRIDAY.mp3');
-  batmanSfx = createAudio('assets/sounds/pride.mp3');
-  batmanScript = createAudio('assets/sounds/carti.mp3');
+  batmanMusic = createAudio('assets/sounds/batmanSoundtrack.mp3');
+  batmanSfx = createAudio('assets/sounds/batmanFx.mp3');
+  batmanScript = createAudio('assets/sounds/batmanScript.mp3');
 
 
   // creating the sliders, first one is for the music, second for sound effects and the third is for the joker talking
@@ -205,9 +205,9 @@ function jokerState() {
 
   //setting up the background along with double effect
   background(150);
-  image(fingers, 10, 10); // draw the video frame to canvas
+  image(batmanClip, 10, 10); // draw the video frame to canvas
   filter(GRAY);
-  image(fingers, 150, 150); // draw a second copy to canvas
+  image(batmanClip, 150, 150); // draw a second copy to canvas
 
   // the text of the slides
   fill(255, 255, 255);
@@ -249,9 +249,9 @@ function batmanState() {
 
   //setting up the background along with double effect
   background(150);
-  image(pie, 10, 10); // draw the video frame to canvas
+  image(jokerClip, 10, 10); // draw the video frame to canvas
   filter(GRAY);
-  image(pie, 150, 150); // draw a second copy to canvas
+  image(jokerClip, 150, 150); // draw a second copy to canvas
 
   // the text of the slides
   fill(255, 255, 255);
