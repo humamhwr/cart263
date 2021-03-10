@@ -1,6 +1,3 @@
-// The dark knight audio player, Hummam Houara
-// The user picks between by the joker and the batman. then an audio player shows up that plays a theme song.
-// inispired by the latest stocks market costing hedgefunds to lose million of dollars
 "use strict";
 
 //defining the audio and video files and the sliders

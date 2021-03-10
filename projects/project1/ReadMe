@@ -1,0 +1,9 @@
+ The dark knight audio player, Hummam Houara
+ The user choses between batman and the joker then the user will be able to adjust the volume of three aspects
+ the soundtrack, the sound effects and the script.
+ this should give the user an experience of the movie without necessarily watching it. they can
+ understand both sides of the movie by analyzing the audio concept.
+An edit of each character will also be played to give the user some visualization.
+
+i used the P5 and the annyang library.
+Some of my code was also inspired by some examples from the documentation of the P5 library.
