@@ -257,9 +257,9 @@ function batmanState() {
   fill(255, 255, 255);
   textSize(15);
   noStroke();
-  text('music', 155, 35);
-  text('sfx', 155, 65);
-  text('script', 155, 95);
+  text('music', 175, 35);
+  text('sfx', 170, 65);
+  text('script', 175, 95);
 }
 
 
@@ -281,7 +281,6 @@ function batmanAudio3() {
   batmanScript.volume(val3);
   batmanScript.play();
 }
-
 
 
 // when the user presses the mouse the state changes and calling the gamestop mouse pressed function.
