@@ -32,13 +32,13 @@ function draw() {
   background(0);
 }
 
-// loading the images and sounds, used a loop for the logo images
+// loading the images and sounds
 function preload() {
   wallpaper = loadImage(`assets/images/wallpaper.gif`)
   batmanImage = loadImage(`assets/images/batmanImage.jpg`);
   jokerBatmanImage = loadImage(`assets/images/jokerbatman.gif `);
-  backgroundMusic = loadSound(`assets/sounds/effect.mp3`);
-  aw = loadSound(`assets/sounds/aw.mp3`);
+
+
 }
 
 // startState and endState variables
@@ -63,19 +63,14 @@ let finishState = {
 
 // starting the program with the "start" state
 let state = `start`;
-/**
-canvas and randomizing places of the logos
-*/
+
 function setup() {
   createCanvas(windowWidth, windowHeight);
-
-
 
   // calling the enter and end screen
   setUpWelcomeState();
   setUpEndState();
 
-  // specify multiple formats for different browsers
   //loading the video, playing it on loop and muted
   batmanClip = createVideo(['assets/videos/batman.mov']);
   batmanClip.hide();
@@ -100,7 +95,7 @@ function setup() {
 
 
   // creating the sliders, first one is for the music, second for sound effects and the third is for the joker talking
-  musicSlider = createSlider(0, 1, 1);
+  musicSlider = createSlider(0, 1);
   musicSlider.position(20, 20);
   sfxSlider = createSlider(0, 1, 1);
   sfxSlider.position(20, 50);
@@ -126,15 +121,21 @@ function draw() {
   }
 }
 
+//the state where the user choses between batman or joker
 function choosingSides() {
   background(jokerBatmanImage)
+  push();
   textSize(startState.size);
   fill(255);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
   strokeWeight(50);
-  text('Are you on Batman or the jokers side?', startState.x, startState.y);
+  text(`Woul you like to experince Batman or the joker's side?`, startState.x, startState.y);
+  pop();
+  textSize(20);
   text(`say your answer outloud`, width / 2, 300);
+
+  //calling annyang library and chaning states according to input
   if (annyang) {
     let commands = {
       'joker': function() {
@@ -205,17 +206,17 @@ function jokerState() {
 
   //setting up the background along with double effect
   background(150);
-  image(batmanClip, 10, 10); // draw the video frame to canvas
+  image(jokerClip, 20, 20); // draw the video frame to canvas
   filter(GRAY);
-  image(batmanClip, 150, 150); // draw a second copy to canvas
+  image(jokerClip, 150, 150); // draw a second copy to canvas
 
   // the text of the slides
   fill(255, 255, 255);
   textSize(15);
   noStroke();
-  text('music', 155, 35);
-  text('sfx', 155, 65);
-  text('script', 155, 95);
+  text('music', 175, 35);
+  text('sfx', 170, 65);
+  text('script', 175, 95);
 }
 
 
@@ -249,9 +250,9 @@ function batmanState() {
 
   //setting up the background along with double effect
   background(150);
-  image(jokerClip, 10, 10); // draw the video frame to canvas
+  image(jokerClip, 20, 20); // draw the video frame to canvas
   filter(GRAY);
-  image(jokerClip, 150, 150); // draw a second copy to canvas
+  image(batmanClip, 150, 150); // draw a second copy to canvas
 
   // the text of the slides
   fill(255, 255, 255);
@@ -287,8 +288,8 @@ function batmanAudio3() {
 function mousePressed() {
   if (state === `start`) {
     state = `game`;
-  // } else if (state === `game`) {
-  //   gamestop.mousePressed();
-  // }
-}
+    // } else if (state === `game`) {
+    //   gamestop.mousePressed();
+    // }
+  }
 }
