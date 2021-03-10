@@ -1,23 +1,22 @@
 // The dark knight audio player, Hummam Houara
 // The user picks between by the joker and the batman. then an audio player shows up that plays a theme song.
 // inispired by the latest stocks market costing hedgefunds to lose million of dollars
-
-
 "use strict";
-// const for the number of logos on the screen
-const NUM_LOGO_IMAGES = 10;
-const NUM_LOGO = 35;
+
+//defining the audio and video files and the sliders
+let fingers;
+let pie;
+
+let jokerMusic, jokerSfx, jokerScript;
+let batmanMusic, batmanSfx, batmanScript;
+
+let musicSlider, sfxSlider, scriptSlider;
+let bmusicSlider, bsfxSlider, bscriptSlider;
+
 // defining arrays for assets
-let logoImages = [];
-let logos = [];
-
-let gamestopImage = undefined;
-let gamestop = undefined;
-let wallpaper = undefined;
-
-let backgroundMusic = undefined;
-let aw = undefined;
-
+let wallpaper;
+let backgroundMusic;
+let aw;
 let batmanImage = {
   x: 200,
   y: 200,
@@ -26,27 +25,21 @@ let jokerImage = {
   x: 300,
   y: 200,
 }
-let jokerBatmanImage = undefined
-
-
-
+let jokerBatmanImage;
+let batmanScene;
 
 function draw() {
   background(0);
-
-
 }
 
 // loading the images and sounds, used a loop for the logo images
 function preload() {
-  gamestopImage = loadImage(`assets/images/gamestop.png`)
   wallpaper = loadImage(`assets/images/wallpaper.gif`)
   batmanImage = loadImage(`assets/images/batmanImage.jpg`);
   jokerBatmanImage = loadImage(`assets/images/jokerbatman.gif `);
   backgroundMusic = loadSound(`assets/sounds/effect.mp3`);
   aw = loadSound(`assets/sounds/aw.mp3`);
 }
-
 
 // startState and endState variables
 let startState = {
@@ -67,30 +60,52 @@ let finishState = {
   vy: undefined,
   size: undefined,
 };
+
 // starting the program with the "start" state
 let state = `start`;
-
 /**
 canvas and randomizing places of the logos
 */
 function setup() {
   createCanvas(windowWidth, windowHeight);
 
-  for (let i = 0; i < NUM_LOGO; i++) {
-    let x = random(0, width);
-    let y = random(0, height);
-    let logoImage = random(logoImages);
-    let logo = new Logo(x, y, logoImage);
-    logos.push(logo);
-  }
 
-  let x = random(0, width);
-  let y = random(0, height);
-  gamestop = new GameStop(x, y, gamestopImage);
 
   // calling the enter and end screen
-  setUpStartState();
+  setUpWelcomeState();
   setUpEndState();
+
+  // specify multiple formats for different browsers
+  //loading the video, playing it on loop and muted
+  fingers = createVideo(['assets/videos/fingers.mov', 'assets/fingers.webm']);
+  fingers.hide();
+  fingers.elt.muted = true;
+  fingers.loop();
+
+  pie = createVideo(['assets/videos/pie.mov', 'assets/fingers.webm']);
+  pie.hide();
+  pie.elt.muted = true;
+  pie.loop();
+
+
+
+  //loading the audio files
+  jokerMusic = createAudio('assets/sounds/FRVRFRIDAY.mp3');
+  jokerSfx = createAudio('assets/sounds/pride.mp3');
+  jokerScript = createAudio('assets/sounds/carti.mp3');
+
+  batmanMusic = createAudio('assets/sounds/FRVRFRIDAY.mp3');
+  batmanSfx = createAudio('assets/sounds/pride.mp3');
+  batmanScript = createAudio('assets/sounds/carti.mp3');
+
+
+  // creating the sliders, first one is for the music, second for sound effects and the third is for the joker talking
+  musicSlider = createSlider(0, 1, 1);
+  musicSlider.position(20, 20);
+  sfxSlider = createSlider(0, 1, 1);
+  sfxSlider.position(20, 50);
+  scriptSlider = createSlider(0, 1, 0);
+  scriptSlider.position(20, 80);
 }
 /**
 wallpaper and calling all the states
@@ -101,29 +116,25 @@ function draw() {
   if (state === `start`) {
     startStart();
   } else if (state === `game`) {
-    gameStart();
-  }
-  else if (state === `batmanState`) {
-   batmanState();
- }
- else if (state === `jokerState`) {
-  jokerStart();
-}
-  else if (state === `finish`) {
+    choosingSides();
+  } else if (state === `batmanState`) {
+    batmanState();
+  } else if (state === `jokerState`) {
+    jokerState();
+  } else if (state === `finish`) {
     gameEnd();
   }
 }
 
-
-function gameStart() {
+function choosingSides() {
   background(jokerBatmanImage)
   textSize(startState.size);
   fill(255);
   textAlign(CENTER, CENTER);
   textStyle(BOLD);
   strokeWeight(50);
-  text(startState.string, startState.x, startState.y);
-  text(startState.string1, width / 2, 300);
+  text('Are you on Batman or the jokers side?', startState.x, startState.y);
+  text(`say your answer outloud`, width / 2, 300);
   if (annyang) {
     let commands = {
       'joker': function() {
@@ -143,7 +154,7 @@ function gameStart() {
 
 
 //both start and finish screens set with same values
-function setUpStartState() {
+function setUpWelcomeState() {
   startState.x = width / 2;
   startState.y = 200;
   startState.vx = 5;
@@ -182,131 +193,103 @@ function gameEnd() {
   text(finishState.string, finishState.x, finishState.y);
   pop();
 }
+
 //set the game finish screen
-function jokerStart() {
-  push();
-  background(wallpaper);
-  textSize(finishState.size);
-  fill(255);
-  textAlign(CENTER, CENTER);
-  textStyle(BOLD);
-  strokeWeight(10);
-  text(finishState.string, finishState.x, finishState.y);
-  pop();
+function jokerState() {
+
+  //calling the audio functions
+  jokerAudio1();
+  jokerAudio2();
+  jokerAudio3();
+
+
+  //setting up the background along with double effect
+  background(150);
+  image(fingers, 10, 10); // draw the video frame to canvas
+  filter(GRAY);
+  image(fingers, 150, 150); // draw a second copy to canvas
+
+  // the text of the slides
+  fill(255, 255, 255);
+  textSize(15);
+  noStroke();
+  text('music', 155, 35);
+  text('sfx', 155, 65);
+  text('script', 155, 95);
 }
+
+
+//val is the value of the volume, when sliding, the volume changes
+function jokerAudio1() {
+  let val1 = musicSlider.value();
+  jokerMusic.volume(val1);
+  jokerMusic.play();
+}
+
+function jokerAudio2() {
+  let val2 = sfxSlider.value();
+  jokerSfx.volume(val2);
+  jokerSfx.play();
+}
+
+function jokerAudio3() {
+  let val3 = scriptSlider.value();
+  jokerScript.volume(val3);
+  jokerScript.play();
+}
+
 //set the game finish screen
 function batmanState() {
-  push();
-  background(wallpaper);
-  function init() {
-	if (!createjs.Sound.initializeDefaultPlugins()) {
-		document.getElementById("error").style.display = "block";
-		document.getElementById("content").style.display = "none";
-		return;
-	}
 
-	$("#position").css("display", "none");
-	$("#playPauseBtn").attr("disabled", true);
-	$("#stopBtn").attr("disabled", true);
-	$("#track").css("display", "none");
+  //calling the audio functions
+  batmanAudio1();
+  batmanAudio2();
+  batmanAudio3();
 
-	examples.showDistractor("content");
-	var assetsPath = "../../_assets/audio/";
-	var src = assetsPath + "M-GameBG.ogg";
 
-	createjs.Sound.alternateExtensions = ["mp3"];	// add other extensions to try loading if the src file extension is not supported
-	createjs.Sound.addEventListener("fileload", createjs.proxy(handleLoadComplete, this)); // add an event listener for when load is completed
-	createjs.Sound.registerSound(src, "music");
+  //setting up the background along with double effect
+  background(150);
+  image(pie, 10, 10); // draw the video frame to canvas
+  filter(GRAY);
+  image(pie, 150, 150); // draw a second copy to canvas
+
+  // the text of the slides
+  fill(255, 255, 255);
+  textSize(15);
+  noStroke();
+  text('music', 155, 35);
+  text('sfx', 155, 65);
+  text('script', 155, 95);
 }
 
-var instance;
-var positionInterval;
-var seeking = false;
 
-function handleLoadComplete(event) {
-	examples.hideDistractor();
-
-	$("#track").css("display", "block");
-	$("#loading").css("display", "none");
-	$("#progress").css("display", "none");
-	$("#position").css("display", "block");
-
-	instance = createjs.Sound.play("music");
-	instance.addEventListener("complete", function () {
-		clearInterval(positionInterval);
-		$("#playBtn").removeClass("pauseBtn").addClass("playBtn")
-		$("#stopBtn").attr("disabled", true);
-	});
-	$("#playPauseBtn").attr("disabled", false);
-	$("#playBtn").removeClass("playBtn").addClass("pauseBtn");
-	$("#playBtn").click(function (event) {
-		if (instance.playState == createjs.Sound.PLAY_FINISHED) {
-			instance.play();
-			$("#playBtn").removeClass("playBtn").addClass("pauseBtn");
-			trackTime();
-			return;
-		} else {
-			instance.paused ? instance.paused = false : instance.paused = true;
-		}
-
-		if (instance.paused) {
-			$("#playBtn").removeClass("pauseBtn").addClass("playBtn");
-		} else {
-			$("#playBtn").removeClass("playBtn").addClass("pauseBtn");
-		}
-	});
-	$("#stopBtn").click(function (event) {
-		instance.stop();
-		//console.log("stop");
-		clearInterval(positionInterval);
-		$("#playBtn").removeClass("pauseBtn").addClass("playBtn");
-		$("#thumb").css("left", 0);
-	});
-	$("#stopBtn").attr("disabled", false);
-
-	trackTime();
-
-	// http://forums.mozillazine.org/viewtopic.php?f=25&t=2329667
-	$("#thumb").mousedown(function (event) {
-		//console.log("mousedown");
-		var div = $();
-		$("#player").append($("<div id='blocker'></div>"));
-		seeking = true;
-		$("#player").mousemove(function (event) {
-			// event.offsetX is not supported by FF, hence the following from http://bugs.jquery.com/ticket/8523
-			if (typeof event.offsetX === "undefined") { // || typeof event.offsetY === "undefined") {
-				var targetOffset = $(event.target).offset();
-				event.offsetX = event.pageX - targetOffset.left;
-				//event.offsetY = event.pageY - targetOffset.top;
-			}
-			$("#thumb").css("left", Math.max(0, Math.min($("#track").width() - $("#thumb").width(), event.offsetX - $("#track").position().left)));
-		})
-		$("#player").mouseup(function (event) {
-			//console.log("mouseup");
-			seeking = false;
-			$(this).unbind("mouseup mousemove");
-			var pos = $("#thumb").position().left / $("#track").width();
-			instance.position = (pos * instance.duration);
-			$("#blocker").remove();
-		});
-	});
+//val is the value of the volume, when sliding, the volume changes
+function batmanAudio1() {
+  let val1 = musicSlider.value();
+  batmanMusic.volume(val1);
+  batmanMusic.play();
 }
 
-var dragOffset;
-function trackTime() {
-	positionInterval = setInterval(function (event) {
-		if (seeking) {
-			return;
-		}
-		$("#thumb").css("left", instance.position / instance.duration * $("#track").width()-10);
-	}, 30);
+function batmanAudio2() {
+  let val2 = sfxSlider.value();
+  batmanSfx.volume(val2);
+  batmanSfx.play();
 }
+
+function batmanAudio3() {
+  let val3 = scriptSlider.value();
+  batmanScript.volume(val3);
+  batmanScript.play();
 }
+
+
+
 // when the user presses the mouse the state changes and calling the gamestop mouse pressed function.
 function mousePressed() {
   if (state === `start`) {
     state = `game`;
-  } else if (state === `game`) {
-    gamestop.mousePressed();
-  }
+  // } else if (state === `game`) {
+  //   gamestop.mousePressed();
+  // }
+}
 }
