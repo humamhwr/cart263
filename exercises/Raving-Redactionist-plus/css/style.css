@@ -1,8 +1,14 @@
-#secret-document {
-  font-family: monospace;
+#contract {
+  font-family: times;
   font-size: 1rem;
   width: 50vw;
   margin: auto;
+  text-align: justify;
+
+}
+
+.title {
+  color: aqua;
 }
 
 .redacted {
@@ -13,4 +19,17 @@
 .revealed {
   color: red;
   text-decoration: underline;
+}
+
+#frame {
+  /* Dimensions of the frame */
+  width: 43vw;
+  height: 45vw;
+  /* The frame walls */
+  border: 3px solid;
+  /* CSS grid for alignment of elements in the frame */
+  display: grid;
+  justify-content: center;
+  align-content: center;
+  background-image: url("assets/images/stamp.jpeg");
 }
