@@ -1,13 +1,9 @@
 "use strict";
 
-let anthem;
 
-function preload() {
-  anthem = loadSound(`assets/sounds/anthem.mp3`)
-}
 $(`.top-secret`).on(`click`, redact);
 setInterval(revelation, 500);
-anthem.play();
+
 
 function redact(event) {
   $(this).removeClass(`revealed`);
@@ -24,4 +20,14 @@ function attemptReveal() {
     $(this).removeClass(`redacted`);
     $(this).addClass(`revealed`);
   }
+}
+
+var x = document.getElementById("anthem"); 
+
+function playAudio() {
+  x.play();
+}
+
+function pauseAudio() {
+  x.pause();
 }
