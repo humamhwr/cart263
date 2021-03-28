@@ -1,8 +1,9 @@
 
 "use strict";
+
 $(`.top-secret`).on(`click`, redact);
 setInterval(revelation, 500);
-
+anthem.play();
 
 function redact(event) {
   $(this).removeClass(`revealed`);
