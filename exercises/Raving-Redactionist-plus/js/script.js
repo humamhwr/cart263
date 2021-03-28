@@ -1,6 +1,10 @@
-
 "use strict";
 
+let anthem;
+
+function preload() {
+  anthem = loadSound(`assets/sounds/anthem.mp3`)
+}
 $(`.top-secret`).on(`click`, redact);
 setInterval(revelation, 500);
 anthem.play();
