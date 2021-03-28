@@ -12,6 +12,11 @@
   font-size: 2rem;
 }
 
+.prisoner-dragging {
+  color: #4444ff;
+  text-decoration: underline;
+}
+
 #escape-tunnel {
   width: 5vw;
   height: 5vw;
@@ -20,9 +25,4 @@
   display: grid;
   justify-content: center;
   align-content: center;
-}
-
-.prisoner-dragging {
-  color: #4444ff;
-  text-decoration: underline;
 }

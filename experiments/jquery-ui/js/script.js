@@ -8,7 +8,17 @@ $(`#prisoner`).effect({
   distance: 5,
   complete: makePrisonerDraggable
 });
-
+$(`#introduction-dialog`).dialog({
+  modal: true,
+  buttons: {
+    "Imagination": function() {
+      $(this).dialog(`close`);
+    },
+    "Escape tunnel": function() {
+      $(this).dialog(`close`);
+    }
+  }
+});
 /**
 Makes the prisoner draggable
 */
@@ -39,5 +49,25 @@ $(`#escape-tunnel`).droppable({
       effect: `blind`,
       duration: 500
     });
+  }
+});
+
+// Hide the escape tunnel initially
+$(`#escape-tunnel`).hide();
+
+$(`#introduction-dialog`).dialog({
+  modal: true,
+  buttons: {
+    "Imagination": function() {
+      // NEW!
+      // Remove the restriction of the prisoner being contained by the prison!
+      $(`#prisoner`).draggable(`option`,`containment`,`none`);
+      $(this).dialog(`close`);
+    },
+    "Escape tunnel": function() {
+      // If they want an escape tunnel, give it to them...
+      $(`#escape-tunnel`).show();
+      $(this).dialog(`close`);
+    }
   }
 });
