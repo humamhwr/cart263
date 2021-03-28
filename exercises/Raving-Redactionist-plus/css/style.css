@@ -5,10 +5,7 @@
   margin: auto;
   text-align: justify;
 
-}
 
-.title {
-  color: aqua;
 }
 
 .redacted {
@@ -17,7 +14,7 @@
 }
 
 .revealed {
-  color: red;
+  color: white;
   text-decoration: underline;
 }
 
@@ -31,5 +28,5 @@
   display: grid;
   justify-content: center;
   align-content: center;
-  background-image: url("assets/images/stamp.jpeg");
+  background:blue;
 }
