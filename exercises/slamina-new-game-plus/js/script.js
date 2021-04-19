@@ -178,7 +178,7 @@ function setup() {
    setUpHintList();
   }
   }
-}
+
 
 function draw() {
   background(0);
