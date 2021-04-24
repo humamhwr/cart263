@@ -116,7 +116,7 @@ function play() {
   push();
   fill(0);
   textSize(15);
-  textAlign(LEFT);
+  textAlign(CENTER);
   text(`1. Guess the reverse spelling of a car.
     \n2. Click the cars image for a new word to guess.
     \n3. start your answer with "are you driving.."`, 10, 50);
@@ -174,9 +174,9 @@ function mousePressed() {
     let reverseCar = reverseString(currentCar);
 
     // responsiveVoice repeats the element in reverse
-    responsiveVoice.speak(reverseCar, "UK English Male", {
-      pitch: 1.5,
-      rate: 0.7,
+    responsiveVoice.speak(reverseCar, "UU English Male", {
+      pitch: 1,
+      rate: 0,
     });
     gameState = `inGame`;
   }
