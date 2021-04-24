@@ -6,9 +6,9 @@ class Pink extends Bubble {
     super(x, y, size);
 
     this.pink = {
-      r: 0,
-      g: 255,
-      b: 0,
+      r: 255,
+      g: 192,
+      b: 203,
       alpha: 100
     };
   }

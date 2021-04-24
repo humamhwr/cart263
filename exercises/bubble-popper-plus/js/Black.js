@@ -4,8 +4,8 @@ class Black extends Bubble {
   constructor(x, y, size) {
     super(x, y, size);
     this.black = {
-      r: 255,
-      g: 255,
+      r: 0,
+      g: 0,
       b: 0,
       alpha: 100
     };
