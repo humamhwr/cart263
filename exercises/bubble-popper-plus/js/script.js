@@ -8,7 +8,7 @@ The user will be able to pop diffrent colored circles using their finger.
 Each finger tip will be a color that will pop the circle that matches its color.
 */
 let state = `loadingScreen`;
-// camera variable
+// camera variable 
 let camera;
 
 //  hand variable
