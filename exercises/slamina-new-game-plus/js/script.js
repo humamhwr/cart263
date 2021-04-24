@@ -1,217 +1,204 @@
 "use strict";
 
-const animals = [
-  "aardvark",
-      "alligator",
-      "alpaca",
-      "antelope",
-      "ape",
-      "armadillo",
-      "baboon",
-      "badger",
-      "bat",
-      "bear",
-      "beaver",
-      "bison",
-      "boar",
-      "buffalo",
-      "bull",
-      "camel",
-      "canary",
-      "capybara",
-      "cat",
-      "chameleon",
-      "cheetah",
-      "chimpanzee",
-      "chinchilla",
-      "chipmunk",
-      "cougar",
-      "cow",
-      "coyote",
-      "crocodile",
-      "crow",
-      "deer",
-      "dingo",
-      "dog",
-      "donkey",
-      "dromedary",
-      "elephant",
-      "elk",
-      "ewe",
-      "ferret",
-      "finch",
-      "fish",
-      "fox",
-      "frog",
-      "gazelle",
-      "gila monster",
-      "giraffe",
-      "gnu",
-      "goat",
-      "gopher",
-      "gorilla",
-      "grizzly bear",
-      "ground hog",
-      "guinea pig",
-      "hamster",
-      "hedgehog",
-      "hippopotamus",
-      "hog",
-      "horse",
-      "hyena",
-      "ibex",
-      "iguana",
-      "impala",
-      "jackal",
-      "jaguar",
-      "kangaroo",
-      "koala",
-      "lamb",
-      "lemur",
-      "leopard",
-      "lion",
-      "lizard",
-      "llama",
-      "lynx",
-      "mandrill",
-      "marmoset",
-      "mink",
-      "mole",
-      "mongoose",
-      "monkey",
-      "moose",
-      "mountain goat",
-      "mouse",
-      "mule",
-      "muskrat",
-      "mustang",
-      "mynah bird",
-      "newt",
-      "ocelot",
-      "opossum",
-      "orangutan",
-      "oryx",
-      "otter",
-      "ox",
-      "panda",
-      "panther",
-      "parakeet",
-      "parrot",
-      "pig",
-      "platypus",
-      "polar bear",
-      "porcupine",
-      "porpoise",
-      "prairie dog",
-      "puma",
-      "rabbit",
-      "raccoon",
-      "ram",
-      "rat",
-      "reindeer",
-      "reptile",
-      "rhinoceros",
-      "salamander",
-      "seal",
-      "sheep",
-      "shrew",
-      "silver fox",
-      "skunk",
-      "sloth",
-      "snake",
-      "squirrel",
-      "tapir",
-      "tiger",
-      "toad",
-      "turtle",
-      "walrus",
-      "warthog",
-      "weasel",
-      "whale",
-      "wildcat",
-      "wolf",
-      "wolverine",
-      "wombat",
-      "woodchuck",
-      "yak",
-      "zebra"
-]
+/*****************
 
-//set up enter screen with enclosed introduction string.
-let enterScreen = {
-  string: `Click to enter game, and then click to hear the Anagram. \n Listen to the anagram. \n Say, "I think it is ....." and guess the correct animal. \n GET HINTS: Press 'A' to see the anagram. Press 'L' to see all the possible animals. \n Guess 6 animals correctly and win! BE CAREFUL! If you're wrong we take a point away!`,
-  x: undefined,
-  y: undefined,
-  size: undefined,
-};
+Car guessing game,
+Hummam Houara
 
-//Set up win screen for end of game.
-let winScreen = {
-  string: `You win! REFRESH to play again!`,
-  x: undefined,
-  y: undefined,
-  size: undefined,
-};
+******************/
 
-let currentAnimal = ``;
+// first state
+let state = `title`;
+
+// gamestate
+let gameState = ``;
+
+// array of cars
+const cars = [
+  "jeep",
+  "honda",
+  "mazda",
+  "ferrari",
+  "lamborghini",
+  "jaguar",
+  "ford",
+  "mercedes"
+];
+
+let welcomingPhrase = `Ready to guess some cars?`;
+
+let currentCar = ``;
+
 let currentAnswer = ``;
 
+let brandsImage = undefined;
+let carsImage = undefined;
+
+
+function preload() {
+  brandsImage = loadImage('assets/images/logos.jpeg');
+  carsImage = loadImage ('assets/images/cars.jpeg')
+}
+
+// setup()
 function setup() {
   createCanvas(windowWidth, windowHeight);
+  imageMode(CENTER);
 
+  // annyang
+  if (annyang) {
+    // declaring a commands variable
+    let commands = {
+      // calling the car function
+      'Are you driving a *car': guessCar
+    };
+    annyang.debug();
+
+    annyang.addCommands(commands);
+
+    //starting annyang
+    annyang.start();
+
+    // text styling
+    textSize(50);
+    textFont(`serif`);
+    textAlign(CENTER, CENTER);
+  }
+}
+
+// draw()
+// order of the states
+function draw() {
+  if (state === `title`) {
+    title();
+  } else if (state === `play`) {
+    play();
+  }
+}
+
+// asking the user if they'd like to play with them
+// user must reply yes or no. if the user say yes, it switches states.
+function title() {
+  background(255);
+
+  push();
+  textSize(30);
+  fill(0);
+  text(`A Game of guessing cars`, width / 2 - 10, height / 7);
+  push();
+  textSize(10);
+  text(`Click on the picture`, width / 2 - 10,  700);
+  pop();
+
+  image(brandsImage, width / 2, height / 2, 700, 550);
+
+  // if the user says yes, the state switches to the game
+  // if the user says no, the user is prompted to basically say yes
   if (annyang) {
     let commands = {
-      'I think it is *animal': guessAnimal
+      'Yes': function() {
+        state = `play`;
+      },
+      'No': function() {
+        alert(`Say yes please i wrote a lot of codes for this`);
+      }
     };
     annyang.addCommands(commands);
     annyang.start();
-
-    textSize(32);
-    textStyle(BOLD);
-    textAlign(CENTER, CENTER);
-
-
-    //call set up functions for different screens for different states.
-   setUpEnterScreen();
-   setUpWinScreen();
-   //call set up function for hintList
-   setUpHintList();
   }
-  }
-
-
-function draw() {
-  background(0);
-
-  if (currentAnswer === currentAnimal) {
-    fill(0,255,0);
-  }
-  else {
-    fill(255,0,0);
-  }
-  text(currentAnswer,width / 2, height / 2);
 }
 
+// where the game begins
+function play() {
+  background(255);
+
+  // instructions
+  push();
+  fill(0);
+  textSize(15);
+  textAlign(LEFT);
+  text(`1. Guess the reverse spelling of a car.
+    \n2. Click the cars image for a new word to guess.
+    \n3. start your answer with "are you driving.."`, 10, 50);
+  pop();
+  image(carsImage, width / 2, height / 2, 500, 300);
+}
+
+// calling the right and wrong functions
+function answer() {
+  // // what happens when the user is either right or wrong
+  if (currentAnswer === currentCar) {
+    right();
+  } else {
+    wrong();
+  }
+}
+
+// right function
+function right() {
+  push();
+  gameState = `right`;
+  responsiveVoice.speak(`Vroom! Correct`, "UK English Male", {
+    pitch: 1.5,
+    rate: 0.7
+  });
+  pop();
+}
+
+// wrong function
+function wrong() {
+  push();
+  gameState = `wrong`;
+  responsiveVoice.speak(`Nope, try agian`, "UK English Male", {
+    pitch: 1.5,
+    rate: 0.7
+  });
+  pop();
+}
+
+// User clicks the screen, responsiveVoice says a car backwards
 function mousePressed() {
-  currentAnimal = random(animals);
-  let reverseAnimal = reverseString(currentAnimal);
-  responsiveVoice.speak(reverseAnimal);
+  // only plays when the state is set to 'title'
+  if (state === `title`) {
+    responsiveVoice.speak(welcomingPhrase, "UK English Male", {
+      pitch: 1,
+      rate: 1,
+    });
+    gameState = `none`;
+  }
+
+  if (state === `play`) {
+
+    currentCar = random(cars);
+
+    let reverseCar = reverseString(currentCar);
+
+    // responsiveVoice repeats the element in reverse
+    responsiveVoice.speak(reverseCar, "UK English Male", {
+      pitch: 1.5,
+      rate: 0.7,
+    });
+    gameState = `inGame`;
+  }
 }
 
-function guessAnimal(animal) {
-  currentAnswer = animal.toLowerCase();
-  console.log(currentAnswer);
+
+// when annyang calls this function, it's going to send what the user said to this function in the parameter
+function guessCar(car) {
+  currentAnswer = car.toLowerCase();
+  answer();
 }
-/**
-Reverses the provided string
-*/
+
+
+//from the notes
 function reverseString(string) {
-  // Split the string into an array of characters
+
   let characters = string.split('');
-  // Reverse the array of characters
+
   let reverseCharacters = characters.reverse();
-  // Join the array of characters back into a string
+
   let result = reverseCharacters.join('');
+
   // Return the result
   return result;
 }
