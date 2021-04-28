@@ -1,5 +1,4 @@
-
-  body {
+body {
   font-family: termina, sans-serif;
   color: #1a171d;
   font-size: 0.8vw;
@@ -18,50 +17,189 @@ h1 {
   letter-spacing: -0.02em;
 }
 
-h2 {
-  margin-top: 0px;
+
+p {
   margin-bottom: 0px;
-  font-size: 160%;
-  line-height: 1.3;
-  font-weight: 700;
-  text-transform: uppercase;
+}
+
+a {
+  color: #1a171d;
+  text-decoration: none;
+}
+
+.bar {
+  position: fixed;
+  left: 0%;
+  top: 0%;
+  right: auto;
+  bottom: 0%;
+  z-index: 1000;
+  display: flex;
+  width: 10vw;
+  height: 100vh;
+  max-height: 100vh;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: stretch;
+  border-right: 0.15vw solid #1a171d;
+  background-color: #fff;
+}
+
+.now_playing {
+  display: flex;
+  height: 5vw;
+  min-height: 5vw;
+  min-width: 100%;
+  justify-content: center;
+  align-items: center;
+  border-top: 0.15vw solid #1a171d;
+  background-color: #0080de;
+  color: #fff;
+  text-align: center;
+}
+
+.bar_info {
+  position: relative;
+  width: 100%;
+  height: 70%;
+  flex-direction: column-reverse;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.bar_art {
+  width: 9vw;
+  height: 9vw;
+  margin-top: 1.5vw;
+  border-style: solid;
+  border-width: 0.15vw;
+  border-color: #1a171d;
+
+  object-fit: cover;
+}
+
+.is_artist {
+  margin-right: 0px;
+  margin-left: 0px;
+  font-weight: 400;
+  white-space: nowrap;
+  transform: rotate(-90deg);
+}
+.bar_title {
+  display: flex;
+}
+.bar_song {
+  position: absolute;
+  left: 0%;
+  top: auto;
+  right: auto;
+  bottom: 0%;
+  z-index: 6;
+  display: flex;
+  width: 10vw;
+  padding-bottom: 3vw;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+.is--song {
+  margin-right: 0.3vw;
+  margin-left: 0px;
+  transform: rotate(-180deg);
 }
 
 
 
+.main_container {
+  overflow: hidden;
+  width: 100%;
+  padding-left: 10vw;
+}
+.box {
+  display: flex;
+  width: 20vw;
+  height: 32.5vw;
+  min-width: 20vw;
+  justify-content: center;
+  align-items: center;
+  background-color: #e2f0ff;
+}
+
+.controls {
+  display: flex;
+  width: 100%;
+  padding: 0vw 2vw;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #e2feff;
+}
+
+.control {
+  display: flex;
+  justify-content: flex-start;
+  align-items: stretch;
+}
+
+.button_container {
+  text-align: center;
+}
+
+.button_text {
+  margin-top: 0.5vw;
+  margin-bottom: 1.6vw;
+}
+
+.button_text.is--last {
+  margin-bottom: 0vw;
+}
+
+.enjoy_box {
+  position: relative;
+  display: flex;
+  width: 24vw;
+  padding: 3.5vw 3vw;
+  justify-content: center;
+  align-items: center;
+  background-color: #1a171d;
+  color: #e2f0ff;
+}
+
 .main {
   position: relative;
-  display: -webkit-box;
-  display: -webkit-flex;
-  display: -ms-flexbox;
+  display: flex;
+  align-items: stretch;
+  border-bottom: 0.15vw dotted #1a171d;
+}
+
+.right_section {
+  position: relative;
   display: flex;
   overflow: hidden;
-  width: 100vw;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
+  width: 60vw;
   justify-content: center;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
   align-items: center;
   background-image: url("https://wallpaperaccess.com/full/2049166.png");
-  background-position: 100% 100%;
+  background-position: 50% 50%;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
 .record {
-  width: 60%;
-  position: relative;
-  left:300px;
+  width: 70%;
+  -webkit-animation:spin 4s linear infinite;
+   -moz-animation:spin 4s linear infinite;
+   animation:spin 4s linear infinite;
 }
+/* https://stackoverflow.com/questions/16771225/css3-rotate-animation */
+@-moz-keyframes spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
 
-.slide_botton {
-  width: 10vw;
-}
 
-.slide_middle {
+
+
+
+.slide_arm {
   position: absolute;
   left: auto;
   top: 0%;
@@ -71,28 +209,21 @@ h2 {
   max-width: none;
   margin-top: 3vw;
   margin-right: 3vw;
-  -webkit-transform: rotate(-26deg);
-  -ms-transform: rotate(-26deg);
   transform: rotate(-26deg);
-  -webkit-transform-origin: 100% 0%;
-  -ms-transform-origin: 100% 0%;
   transform-origin: 100% 0%;
 }
 
-.slide_top {
+.arm_holder {
   position: absolute;
   left: auto;
   top: 0%;
   right: 0%;
   bottom: auto;
-  width: 6.5vw;
-  margin-top: 1.8vw;
-  margin-right: 1vw;
+  width: 4vw;
+  margin-top: 27vw;
+  margin-right: 2vw;
 }
-
-
-
-.switch {
+.power {
   position: absolute;
   left: 0%;
   top: 0%;
@@ -102,30 +233,47 @@ h2 {
   margin-left: 3vw;
 }
 
-.switch_img {
-  width: 6.2vw;
-}
-
-
-.stickers {
+.nextButton {
   position: absolute;
   left: 0%;
   top: 0%;
   right: auto;
-  bottom: 0%;
-  z-index: 300;
-  display: flex;
-  width: 30vw;
-  -webkit-box-pack: center;
-  -webkit-justify-content: center;
-  -ms-flex-pack: center;
-  justify-content: center;
-  -webkit-box-align: end;
-  -webkit-align-items: flex-end;
-  -ms-flex-align: end;
-  align-items: flex-end;
+  bottom: auto;
+  margin-top: 3vw;
+  margin-left: 23vw;
 }
 
+.previousButton {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  right: auto;
+  bottom: auto;
+  margin-top: 13vw;
+  margin-left: 23vw;
+}
+
+.shuffleButton {
+  position: absolute;
+  left: 0%;
+  top: 0%;
+  right: auto;
+  bottom: auto;
+  margin-top: 23vw;
+  margin-left: 23vw;
+}
+
+
+
+
+
+.no-click {
+  cursor: not-allowed;
+}
+
+.stickers{
+  cursor: move;
+}
 .sticker {
   position: absolute;
   left: 0%;
@@ -137,64 +285,75 @@ h2 {
   margin-top: 6vw;
   margin-left: 5vw;
   transform: scale3d(1none, 1none, 1none);
-  transition: -webkit-transform 150ms ease;
   transition: transform 150ms ease;
-  transition: transform 150ms ease, -webkit-transform 150ms ease;
+  transition: transform 150ms ease,
   cursor: move;
 }
 
  .sticker:active {
-
-  -ms-transform: scale(1.07);
   transform: scale(1.07);
 }
 
-.sticker.num-2 {
-  margin-top: 1vw;
-  margin-left: 13vw;
-}
 
-.sticker.num-3 {
-  margin-top: -2vw;
-  margin-left: 17vw;
-}
-
-.sticker.num-4 {
-  margin-top: 9vw;
-  margin-left: 17vw;
-}
-
-.sticker.num-5 {
-  width: 17vw;
-  margin-top: 14vw;
-  margin-left: 12vw;
-}
-
-.sticker.num-6 {
-  margin-top: 11vw;
-  margin-left: 15vw;
-}
-
-.sticker.num-7 {
-  width: 22vw;
-  margin-top: 19vw;
-  margin-left: 4vw;
-}
-
-.sticker.num-8 {
-  margin-top: 27vw;
-  margin-left: -6vw;
-}
-
-.sticker.num-9 {
-  width: 50vw;
-  margin-top: 90vw;
-  margin-left: -5vw;
-}
-
-.stickers_contain {
+/* The switch - the box around the slider */
+.switch {
   position: relative;
-  width: 100%;
-  height: 74%;
-  margin-bottom: 3vw;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+.switch input {display:none;}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+/* made sizing for a standard 13inch screen*/
+@media only screen and (min-width: 992px) {
+  .is--song {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .is_artist {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
+  .is--text {
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+  }
 }
