@@ -1,0 +1,27 @@
+CART263
+Project 2
+Hummam Houara
+
+LOFI vinyl Player
+  The vision behind this project is to make a visually pleasing online music player, the reason behind
+it is to just play the vinyl record in the background while the user is reading/studying etc.
+The user is able to interact through multiple ways, for example,  placing stickers turning on and off the vinyl,
+going to the next or previous song, and shuffling.
+
+since we were allowed to use web development languages for this project, i was able to make the design
+pretty eye comfortable since it is a way of playing the calming songs.
+
+The libraries that were used are jquery and jquery UI.
+
+All the songs, covers are made by lofi music.
+https://www.instagram.com/lofifruitsmusic/?hl=en
+https://soundcloud.com/lofifruitsmusic
+
+other resources i used:
+https://www.w3schools.com/howto/howto_css_switch.asp
+https://stackoverflow.com/questions/44565816/javascript-toggle-switch-using-data
+https://stackoverflow.com/questions/7455893/change-the-position-of-image-on-click
+https://www.flaticon.com/
+https://fonts.adobe.com/ (https://use.typekit.net/xix5dph.js)
+https://stackoverflow.com/questions/5915096/get-a-random-item-from-a-javascript-array
+https://github.com/hecpolanco/Simple-Music-Player/blob/d68ace0adecfd6dd8e06deaaf691333b3c10ad04/player.js
