@@ -104,6 +104,3 @@ $(function() {
 
 // making the stickers draggable
 $(".sticker").draggable();
-
-
-});
