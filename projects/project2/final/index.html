@@ -4,67 +4,106 @@
 
 <head>
   <meta charset="utf-8" />
-  <title>project 2 prototype </title>
-  <meta content="width=device-width, initial-scale=1" name="viewport" />
-  <meta name="viewport" width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0>
-<!-- CSS stylesheet(s) -->
+  <title>lofi player</title>
+
+
   <link href="css/style.css" rel="stylesheet" type="text/css" />
+  <!-- adobe type kit fonts -->
+  <script src="https://use.typekit.net/xix5dph.js" type="text/javascript"></script>
 
-  <script src="js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
 
-  <script src="https://code.jquery.com/jquery-3.6.0.js" integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk=" crossorigin="anonymous"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-
-  <div class="main">
-
-      <div class="switch"><a id="play-btn" href="#" class="w-inline-block">
-
-      <img src="assets/images/on_button.svg" style="display:block" alt="" class="switch_img is--2" /></a></div>
-
-      <img src="assets/images/record.png" alt="" class="record" />
-
-      <img src="assets/images/arm.svg" alt="" class="slide_middle" />
-
-      <img src="assets/images/circle.svg" alt="" class="slide_top" /></div>
-  </div>
-  </div>
-
-  <div class="stickers">
-    <div class="stickers_contain">
-
-      <img src="assets/images/sticker1.png"  alt="concordia" class="sticker" />
-
-      <img src="assets/images/sticker2.png"  alt="stingers" class="sticker num-1" />
-
-      <img src="assets/images/sticker3.png"  alt="clown" class="sticker num-2" />
-
-      <img src="assets/images/sticker4.png"  alt="duck" class="sticker num-3" />
-
-      <img src="assets/images/sticker5.png"  alt="imposter" class="sticker num-4" />
-
-      <img src="assets/images/sticker6.jpeg" alt="album" class="sticker num-5" />
-
-      <img src="assets/images/sticker7.png"  alt="barcode" class="sticker num-6" />
-
-      <img src="assets/images/sticker8.png"  alt="pink floyd" class="sticker num-7" />
-
-      <img src="assets/images/sticker9.svg"  alt="lacroix" class="sticker num-8" />
-
+  <!-- Left bar where the cover,  title and song info are shown -->
+  <nav class="bar">
+    <div class="bar_info">
+      <div class="bar_song">
+        <img src="assets/images/covers/yellow.png" class="bar_art" id="song_cover" />
+        <div class="bar_title">
+          <div class="song_name">Yellow</div>
+          <p class="is_artist">Lofi Fruits</p>
+        </div>
+      </div>
     </div>
-  </div>
-  </div>
-  </div>
+
+    <!-- littel box that says now playing  -->
+    <div class="now_playing">
+      <p>NOW<br />PLAYING</p>
+    </div>
+  </nav>
+
+
+  <div class="main_container">
+    <div class="main">
+      <div class="left_section">
+        <div class="control">
+          <div class="box">
+
+
+              <div class="stickers">
+                <h1>Decorate your vinyl</h1>
+                <div class="stickers_contain">
+                  <img src="assets/images/stickers/sticker1.png" alt="concordia" class="sticker " />
+                  <img src="assets/images/stickers/sticker2.png" alt="stingers" class="sticker" />
+                  <img src="assets/images/stickers/sticker3.png" alt="clown" class="sticker " />
+                  <img src="assets/images/stickers/sticker4.png" alt="duck" class="sticker " />
+                  <img src="assets/images/stickers/sticker6.jpeg" alt="fruit" class="sticker " />
+                  <img src="assets/images/stickers/sticker8.png" alt="pink flyod" class="sticker " />
+                </div>
+              </div>
+
+          </div>
+
+          <div class="controls no-click">
+            <div class="button_container">
+              <div class="nextButton">
+                <img src="assets/images/next.png" onclick="nextSong()" style="display:block" type="button">NEXT</img>
+              </div>
+
+            </div>
+            <div class="button_container">
+              <div class="previousButton">
+                <img src="assets/images/previous.png" onclick="previousSong()" style="display:block" type="button">Previous</img>
+              </div>
+            </div>
+            <div class="button_container">
+              <div class="shuffleButton">
+                <img src="assets/images/shuffle.png" onclick="shuffleSong()" style="display:block" type="button">Shuffle</img>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="enjoy_box">
+          <div class="overflow-hidden">
+            <h1 >Enjoy Listening to <span> Lofi Fruits!</h1>
+          </div>
+        </div>
+      </div>
+
+      <div class="right_section">
+        <div class="power">
+          <audio id="audioFile">
+            <!-- for playing the first song -->
+            <source src="assets/images/songs/Avocuddle - Steven Universe.mp3" type="audio/mp3">
+            Your browser does not support the audio element.
+          </audio>
+
+          <!-- toggle switch https://www.w3schools.com/howto/howto_css_switch.asp -->
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider"></span>
+          </label>
+        </div>
+        <img src="assets/images/switch.svg" alt="" class="arm_holder" />
+        <img src="assets/images/record.png" id="record" class="record" />
+        <img src="assets/images/arm.png" id="arm"  class="slide_arm" />
+      </div>
+    </div>
   <script src="js/script.js"></script>
-
-  <script>
-    // Draggable script
-    $(".sticker").draggable();
-  </script>
-
 </body>
-
 </html>
